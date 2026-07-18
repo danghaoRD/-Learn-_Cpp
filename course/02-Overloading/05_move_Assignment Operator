@@ -1,0 +1,90 @@
+### Copy Assignment và Move Assignment có phải hai cơ chế khác nhau?
+
+Không.
+
+Về bản chất, **Copy Assignment** và **Move Assignment** đều là **overload của cùng một toán tử `operator=`**.
+
+```cpp
+class String
+{
+public:
+    // Copy Assignment
+    String& operator=(const String& other);
+
+    // Move Assignment
+    String& operator=(String&& other);
+};
+```
+
+Đây vẫn là **Function Overloading**.
+
+Compiler sử dụng cùng cơ chế **Overload Resolution** để chọn hàm phù hợp dựa trên kiểu của đối số.
+
+Nếu đối số là **lvalue**
+
+```cpp
+String a("Hello");
+String b("World");
+
+b = a;
+```
+
+Compiler sẽ chọn
+
+```cpp
+operator=(const String&);
+```
+
+↓
+
+Copy Assignment.
+
+---
+
+Nếu đối số là **rvalue**
+
+```cpp
+b = String("Hello");
+```
+
+hoặc
+
+```cpp
+b = std::move(a);
+```
+
+Compiler sẽ chọn
+
+```cpp
+operator=(String&&);
+```
+
+↓
+
+Move Assignment.
+
+---
+
+Có thể xem `operator=` giống như một hàm overload thông thường.
+
+```cpp
+void foo(const String&);
+void foo(String&&);
+
+foo(a);             // const String&
+foo(std::move(a));  // String&&
+```
+
+`operator=` hoạt động theo đúng cơ chế này.
+
+Điểm khác là `operator=` là một **special member function**, nên C++ đặt tên riêng cho hai overload phổ biến:
+
+- `operator=(const T&)` → **Copy Assignment Operator**
+- `operator=(T&&)` → **Move Assignment Operator**
+
+Điều này tương tự như Constructor:
+
+- `T(const T&)` → Copy Constructor
+- `T(T&&)` → Move Constructor
+
+Chúng **không phải là cơ chế ngôn ngữ mới**, mà là các overload đặc biệt của constructor và `operator=`.
