@@ -59,9 +59,11 @@ public:
 };
 
 int main() {
+    std::cout << "[Bai 1] Friend function cho operator<<\n";
     Vector2D v(3.0, 4.0);
     // std::cout << v << "\n"; // TODO: bo comment sau khi lam xong Bai 1
 
+    std::cout << "\n[Bai 2] Friend class - Engine/Car/CarFactory\n";
     Car car;
     Engine engine(150);
     CarFactory factory;
@@ -117,9 +119,11 @@ public:
 };
 
 int main() {
+    std::cout << "[Bai 1] Friend function cho operator<<\n";
     Vector2D v(3.0, 4.0);
     std::cout << v << "\n";
 
+    std::cout << "\n[Bai 2] Friend class - Engine/Car/CarFactory\n";
     Car car;
     Engine engine(150);
     CarFactory factory;

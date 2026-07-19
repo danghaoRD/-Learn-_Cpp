@@ -108,7 +108,7 @@ public:
 };
 
 int main() {
-    // --- Test bài A ---
+    std::cout << "[Bai A] SensorBuffer - copy + const + static + friend\n";
     {
         SensorBuffer a(4);
         a.push(1.0f); a.push(2.0f); a.push(3.0f);
@@ -126,7 +126,7 @@ int main() {
     std::cout << "Alive cuoi cung (ky vong 0): "
               << SensorBuffer::aliveCount() << "\n";
 
-    // --- Test bài B ---
+    std::cout << "\n[Bai B] Device/DeviceFactory - struct + friend + static\n";
     DeviceFactory factory;
     Device d1 = factory.create(DeviceConfig{115200, true});
     Device d2 = factory.create(DeviceConfig{9600, false});
@@ -235,6 +235,7 @@ public:
 };
 
 int main() {
+    std::cout << "[Bai A] SensorBuffer - copy + const + static + friend\n";
     {
         SensorBuffer a(4);
         a.push(1.0f); a.push(2.0f); a.push(3.0f);
@@ -250,6 +251,7 @@ int main() {
 
     std::cout << "Alive cuoi cung: " << SensorBuffer::aliveCount() << "\n";
 
+    std::cout << "\n[Bai B] Device/DeviceFactory - struct + friend + static\n";
     DeviceFactory factory;
     Device d1 = factory.create(DeviceConfig{115200, true});
     Device d2 = factory.create(DeviceConfig{9600, false});

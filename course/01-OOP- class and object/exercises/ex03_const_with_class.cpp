@@ -54,6 +54,7 @@ private:
 };
 
 int main() {
+    std::cout << "[Bai 1] Const-correctness co ban\n";
     Point p(3, 4);
     print(p);
     p.setX(10);
@@ -63,6 +64,7 @@ int main() {
     // cp.setX(5); // phải là lỗi biên dịch nếu bỏ comment — object const
     print(cp);
 
+    std::cout << "\n[Bai 2] mutable cho cache\n";
     ExpensiveCalc calc(7);
     std::cout << "Lan 1: " << calc.compute() << "\n"; // tinh that
     std::cout << "Lan 2: " << calc.compute() << "\n"; // lay tu cache, khong in "dang tinh..."
@@ -110,6 +112,7 @@ private:
 };
 
 int main() {
+    std::cout << "[Bai 1] Const-correctness co ban\n";
     Point p(3, 4);
     print(p);
     p.setX(10);
@@ -118,6 +121,7 @@ int main() {
     const Point cp(1, 2);
     print(cp);
 
+    std::cout << "\n[Bai 2] mutable cho cache\n";
     ExpensiveCalc calc(7);
     std::cout << "Lan 1: " << calc.compute() << "\n";
     std::cout << "Lan 2: " << calc.compute() << "\n";

@@ -33,6 +33,7 @@ class Point2D {
 // quan sát lỗi biên dịch, rồi comment dòng đó lại để build tiếp.
 
 int main() {
+    std::cout << "[Bai 1] Chuyen POD struct thanh class co encapsulation\n";
     RawPoint rp{1, 2};
     rp.x = -5; // struct C-style: không ai ngăn được giá trị vô lý
 
@@ -40,6 +41,7 @@ int main() {
     p.setX(-10); // TODO: sau khi cài clamp, x phải thành 0 chứ không phải -10
     std::cout << "p.x = " << p.getX() << " (ky vong 0 neu co clamp am)\n";
 
+    std::cout << "\n[Bai 2] Quan sat default access\n";
     // Config cfg{true, 2};
     // std::cout << cfg.verbose << "\n"; // OK vi struct mac dinh public
 
@@ -85,6 +87,7 @@ class Secret {
 };
 
 int main() {
+    std::cout << "[Bai 1] Chuyen POD struct thanh class co encapsulation\n";
     RawPoint rp{1, 2};
     rp.x = -5;
 
@@ -92,6 +95,7 @@ int main() {
     p.setX(-10);
     std::cout << "p.x = " << p.getX() << "\n";
 
+    std::cout << "\n[Bai 2] Quan sat default access\n";
     Config cfg{true, 2};
     std::cout << cfg.verbose << "\n"; // OK: struct mac dinh public
 

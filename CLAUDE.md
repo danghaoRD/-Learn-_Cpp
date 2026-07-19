@@ -62,6 +62,10 @@ kiến thức vừa học thay vì lan man ngoài phạm vi.
   ứng dụng thực tế tự nhiên gộp chúng lại (ví dụ: một class quản lý tài nguyên
   vừa cần Rule of Three vừa cần static counter vừa cần friend để in log), không
   gộp máy móc cho đủ số lượng khái niệm.
+- **Output trong `main()`**: trước mỗi bài trong file, in một dòng tag
+  `std::cout << "[Bai N] mo ta ngan\n";` để phân biệt output của bài nào khi
+  chạy chung 1 file — không chỉ dựa vào comment `// --- Test bài N ---`
+  (comment không hiện ra khi chạy). Áp dụng cho cả phần đề và phần lời giải.
 - **Build/chạy**: dùng `.vscode/tasks.json` (Ctrl+Shift+B — build file `.cpp`
   đang mở) và `.vscode/launch.json` (F5 — build rồi debug bằng gdb) đã cấu hình
   sẵn ở gốc repo, dùng chung cho mọi bài tập, không cần CMake trừ khi bài tập

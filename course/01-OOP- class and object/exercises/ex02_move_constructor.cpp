@@ -36,7 +36,13 @@ public:
 
     // TODO: move constructor
     // IntArray(IntArray&& other) noexcept { ... }
-    
+    IntArray(IntArray&& other)
+        :   data(other.data),  
+            len(other.len)
+    {
+        other.data = nullptr;
+        other.len = 0;
+    }
     ~IntArray() { delete[] data; }
 
     void set(size_t i, int v) { data[i] = v; }
@@ -96,7 +102,7 @@ int main() {
     // --- Test bài 1 ---
     IntArray a(3);
     a.set(0, 10); a.set(1, 20); a.set(2, 30);
-
+    std::cout << "Bai 1: \n";
     std::cout << "b = std::move(a):\n";
     IntArray b = std::move(a);   // phải gọi move constructor, KHÔNG copy
     b.set(0, 999);
@@ -105,6 +111,7 @@ int main() {
     // sẽ đọc null pointer, nên không test a ở đây nữa (a coi như "rỗng").
 
     // --- Test bài 2 ---
+    std::cout << "Bai 2 \n";
     MyString s1("hello");
     std::cout << "s2 = std::move(s1):\n";
     MyString s2 = std::move(s1);         // move constructor

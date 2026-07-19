@@ -21,7 +21,11 @@ public:
     }
 
     // TODO: copy constructor — deep copy
-    // IntArray(const IntArray& other) { ... }
+    IntArray(const IntArray& other) {
+        len = other.len;
+        data = new int[len];
+        std::memcpy(data, other.data, len * sizeof(int));
+    }
 
     ~IntArray() { delete[] data; }
 
@@ -49,7 +53,21 @@ public:
         std::memcpy(data, text, len);
     }
 
-    // TODO: ~MyString() { ... }
+    ~MyString() { delete[] data; }
+    MyString(const MyString& other) {
+        len = other.len;
+        data = new char[len];
+        std::memcpy(data, other.data, len);
+    }
+
+    MyString& operator=(const MyString& other) {
+        if(this == &other) return *this;
+        len = other.len;
+        data = new char[len];
+        std::memcpy(data, other.data, len);
+        
+        return *this;
+    }
     // TODO: MyString(const MyString& other) { ... }
     // TODO: MyString& operator=(const MyString& other) { ... }
 
@@ -61,7 +79,7 @@ private:
 };
 
 int main() {
-    // --- Test bài 1 ---
+    std::cout << "[Bai 1] IntArray deep copy\n";
     IntArray a(3);
     a.set(0, 10); a.set(1, 20); a.set(2, 30);
     IntArray b = a;      // phải gọi copy constructor
@@ -70,7 +88,8 @@ int main() {
     std::cout << "a[0] = " << a.get(0) << " (ky vong 10)\n";
     std::cout << "b[0] = " << b.get(0) << " (ky vong 999)\n";
 
-    // --- Test bài 2 ---
+    #if 1
+    std::cout << "\n[Bai 2] MyString Rule of Three\n";
     MyString s1("hello");
     MyString s2 = s1;     // copy constructor
     MyString s3("temp");
@@ -80,6 +99,7 @@ int main() {
     std::cout << "s1 = " << s1.c_str() << "\n";
     std::cout << "s2 = " << s2.c_str() << "\n";
     std::cout << "s3 = " << s3.c_str() << "\n";
+    #endif
 
     return 0;
     // Khi a,b,s1,s2,s3 ra khoi scope: neu copy constructor/operator= sai
@@ -148,6 +168,7 @@ private:
 };
 
 int main() {
+    std::cout << "[Bai 1] IntArray deep copy\n";
     IntArray a(3);
     a.set(0, 10); a.set(1, 20); a.set(2, 30);
     IntArray b = a;
@@ -156,6 +177,7 @@ int main() {
     std::cout << "a[0] = " << a.get(0) << "\n";
     std::cout << "b[0] = " << b.get(0) << "\n";
 
+    std::cout << "\n[Bai 2] MyString Rule of Three\n";
     MyString s1("hello");
     MyString s2 = s1;
     MyString s3("temp");

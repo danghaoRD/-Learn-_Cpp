@@ -49,12 +49,15 @@ public:
 // }
 
 int main() {
+    std::cout << "[Bai 1] Dem so object da tao\n";
     Device a, b, c;
     std::cout << "Total devices: " << Device::getCount() << " (ky vong 3)\n";
 
+    std::cout << "\n[Bai 2] static method thuan tuy\n";
     std::cout << "square(5) = " << MathUtil::square(5) << " (ky vong 25)\n";
     std::cout << "isEven(4) = " << MathUtil::isEven(4) << " (ky vong 1)\n";
 
+    std::cout << "\n[Bai 3] local static object - lazy init\n";
     std::cout << getLogPrefix() << "lan 1\n";
     std::cout << getLogPrefix() << "lan 2\n"; // "(getLogPrefix duoc goi)" chi in 1 lan duy nhat khi chay -O0?
     // Luu y: dong "(getLogPrefix duoc goi)" van in moi lan ham chay, nhung
@@ -93,12 +96,15 @@ const std::string& getLogPrefix() {
 }
 
 int main() {
+    std::cout << "[Bai 1] Dem so object da tao\n";
     Device a, b, c;
     std::cout << "Total devices: " << Device::getCount() << "\n";
 
+    std::cout << "\n[Bai 2] static method thuan tuy\n";
     std::cout << "square(5) = " << MathUtil::square(5) << "\n";
     std::cout << "isEven(4) = " << MathUtil::isEven(4) << "\n";
 
+    std::cout << "\n[Bai 3] local static object - lazy init\n";
     std::cout << getLogPrefix() << "lan 1\n";
     std::cout << getLogPrefix() << "lan 2\n";
 
