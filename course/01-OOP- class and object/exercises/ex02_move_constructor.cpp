@@ -36,7 +36,7 @@ public:
 
     // TODO: move constructor
     // IntArray(IntArray&& other) noexcept { ... }
-    IntArray(IntArray&& other)
+    IntArray(IntArray&& other) noexcept
         :   data(other.data),  
             len(other.len)
     {
@@ -91,6 +91,23 @@ public:
     // TODO: MyString(MyString&& other) noexcept { ... }
     // TODO: MyString& operator=(MyString&& other) noexcept { ... }
 
+    MyString(MyString&& other) noexcept
+        : data(other.data), len(other.len)
+    {
+        other.data = nullptr;
+        other.len = 0;
+    }
+
+    MyString& operator=(MyString&& other) noexcept
+    {
+        if (this == &other) return *this;   // self-move guard
+        delete[] data;                     // giải phóng vùng nhớ cũ của *this
+        data = other.data;                 // cướp con trỏ  
+        len = other.len;
+        other.data = nullptr;              // nguồn không được free nữa
+        other.len = 0;
+        return *this;
+    }
     const char* c_str() const { return data ? data : "(moved-from)"; }
 
 private:

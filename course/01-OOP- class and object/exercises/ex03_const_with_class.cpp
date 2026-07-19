@@ -15,8 +15,8 @@ class Point {
 public:
     Point(int x, int y) : x_(x), y_(y) {}
 
-    int getX() /* TODO: const */ { return x_; }
-    int getY() /* TODO: const */ { return y_; }
+    int getX() const /* TODO: const */ { return x_; }
+    int getY() const /* TODO: const */ { return y_; }
     void setX(int v) { x_ = v; }
     void setY(int v) { y_ = v; }
 
