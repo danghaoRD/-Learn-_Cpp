@@ -21,6 +21,17 @@ struct RawPoint {
 // class hơn struct: có thể ràng buộc invariant ngay trong setter, struct
 // public thuần không làm được (ai cũng gán trực tiếp, bỏ qua ràng buộc).
 class Point2D {
+    public:
+    Point2D(int x , int y) : x(x), y(y) {}
+    int getX() const { return x; }
+    int getY() const { return y; }
+
+    void setX(int setX) { x = (setX < 0) ? 0 : setX; }
+    void setY(int setY) { y = (setY < 0) ? 0 : setY; }
+    
+    private:
+        int x;
+        int y;
     // TODO
 };
 
@@ -32,6 +43,20 @@ class Point2D {
 // Sau khi viết xong, thử truy cập secretObj.verbose trực tiếp trong main() —
 // quan sát lỗi biên dịch, rồi comment dòng đó lại để build tiếp.
 
+struct Config {
+    bool verbose;
+    int level;
+};
+class Secret
+{
+private:
+    bool verbose;
+    int level;
+public:
+};
+
+
+
 int main() {
     std::cout << "[Bai 1] Chuyen POD struct thanh class co encapsulation\n";
     RawPoint rp{1, 2};
@@ -42,10 +67,10 @@ int main() {
     std::cout << "p.x = " << p.getX() << " (ky vong 0 neu co clamp am)\n";
 
     std::cout << "\n[Bai 2] Quan sat default access\n";
-    // Config cfg{true, 2};
-    // std::cout << cfg.verbose << "\n"; // OK vi struct mac dinh public
+     Config cfg{true, 2};
+     std::cout << cfg.verbose << "\n"; // OK vi struct mac dinh public
 
-    // Secret s{true, 2};       // se loi neu dung aggregate-init voi private member
+     //Secret s{true, 2};       // se loi neu dung aggregate-init voi private member
     // std::cout << s.verbose << "\n"; // TODO: bo comment de thay loi bien dich,
                                         // roi comment lai truoc khi build ban cuoi.
 

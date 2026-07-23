@@ -21,44 +21,76 @@ class SensorBuffer {
 public:
     SensorBuffer(size_t capacity) : cap_(capacity), len_(0) {
         data_ = new float[cap_];
+        aliveCount_++;
         // TODO: tăng biến static đếm số SensorBuffer đang sống lên 1
     }
 
     // TODO: destructor — giải phóng data_, giảm biến static đếm xuống 1
+    ~SensorBuffer() {
+        delete[] data_;
+        aliveCount_--;
+    }
 
     // TODO: copy constructor — deep copy data_ (KHÔNG dùng chung con trỏ
     // với bản gốc), tăng biến static đếm lên 1 (vì đây cũng là 1 buffer
     // mới đang sống)
+    SensorBuffer(const SensorBuffer& other) {
+        data_ = new float[other.cap_];
+        len_  = other.len_;
+        cap_  = other.cap_; 
+        aliveCount_++;
+        std::memcpy(data_, other.data_, cap_ * sizeof(float));
+    }
+        
 
     // TODO: copy assignment operator — nhớ tự-gán (self-assignment) và
     // giải phóng vùng nhớ cũ trước khi cấp phát mới. KHÔNG tăng biến đếm
     // (số buffer sống không đổi khi gán, chỉ đổi khi tạo/hủy)
+
+    SensorBuffer& operator=(SensorBuffer&& other) noexcept {
+        if (this == &other) return *this;   // self-move guard
+        delete[] data_;                     // release old memory
+        std::memcpy(data_, other.data_, other.cap_ * sizeof(float)); // copy data
+        len_ = other.len_;
+        cap_ = other.cap_;
+        return *this;
+    }
 
     void push(float v) {
         if (len_ < cap_) data_[len_++] = v;
     }
 
     // TODO: getAt(size_t i) — trả về data_[i], phải là hàm const (chỉ đọc)
-    float getAt(size_t /*i*/) const { return 0; } // TODO: sửa lại cho đúng
+    float getAt(size_t i) const { return data_[i]; } // TODO: sửa lại cho đúng
 
     size_t size() const { return len_; }
 
     // TODO: static method aliveCount() trả về số SensorBuffer đang sống
-
+    static size_t aliveCount() { return aliveCount_; } 
+    friend std::ostream& operator<<(std::ostream& os, const SensorBuffer& b);
     // TODO: khai báo friend operator<< để in toàn bộ giá trị trong buffer
 
 private:
     float* data_;
     size_t cap_;
     size_t len_;
+    static size_t aliveCount_;
     // TODO: static size_t aliveCount_;
 };
 
 // TODO: định nghĩa static member ngoài class
-// size_t SensorBuffer::aliveCount_ = 0;
+size_t SensorBuffer::aliveCount_ = 0;
 
 // TODO: định nghĩa operator<<, dạng "SensorBuffer[v0, v1, v2]"
-// std::ostream& operator<<(std::ostream& os, const SensorBuffer& b) { ... }
+std::ostream& operator<<(std::ostream& os, const SensorBuffer& b) {
+    os << "SensorBuffer[";
+    for (size_t i = 0; i < b.len_; ++i) {
+        os << b.data_[i];
+        if (i + 1 < b.len_) os << ", ";
+    }
+    os << "]";
+    return os;
+}
 
 // ===================================================================
 // Bài B: Device / DeviceFactory — struct config thuần + class có friend
@@ -75,6 +107,8 @@ private:
 // Không cần constructor, không cần access specifier (mặc định public là
 // đủ vì đây chỉ là data thuần túy để truyền cấu hình).
 struct DeviceConfig {
+    int baudRate;
+    bool useDma;
     // TODO
 };
 
@@ -86,20 +120,23 @@ public:
     int getBaudRate() const { return cfg_.baudRate; }
 
     // TODO: friend class DeviceFactory;
+    friend class DeviceFactory;
 
 private:
     DeviceConfig cfg_;
     int id_; // chỉ DeviceFactory được phép gán giá trị thật cho id_
     // TODO: static int nextId_;
+    static int nextId_;
 };
 
 // TODO: định nghĩa static member ngoài class
-// int Device::nextId_ = 0;
+   int Device::nextId_ = 0;
 
 class DeviceFactory {
 public:
     Device create(DeviceConfig cfg) {
         Device d(cfg);
+        d.id_ = Device::nextId_++;
         // TODO: gán d.id_ = Device::nextId_++; (truy cập trực tiếp private
         // id_ của Device — chỉ hợp lệ sau khi Device khai báo friend class
         // DeviceFactory)

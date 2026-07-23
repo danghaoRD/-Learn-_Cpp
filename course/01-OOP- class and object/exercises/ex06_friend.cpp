@@ -14,19 +14,20 @@
 class Vector2D {
 public:
     Vector2D(double x, double y) : x_(x), y_(y) {}
-
+    
     // TODO: khai báo friend cho operator<<
     // friend std::ostream& operator<<(std::ostream& os, const Vector2D& v);
+    friend std::ostream& operator<<(std::ostream& os, const Vector2D& v);
 
 private:
     double x_, y_;
 };
 
 // TODO: định nghĩa operator<< bên ngoài class, truy cập trực tiếp v.x_, v.y_
-// std::ostream& operator<<(std::ostream& os, const Vector2D& v) {
-//     os << "(" << v.x_ << ", " << v.y_ << ")";
-//     return os;
-// }
+std::ostream& operator<<(std::ostream& os, const Vector2D& v) {
+    os << "(" << v.x_ << ", " << v.y_ << ")";
+    return os;
+}
 
 // ===== Bài 2 (trung bình): Friend class — Engine/Car/CarFactory =====
 // Car sở hữu con trỏ Engine* private. Chỉ CarFactory được phép gán engine
@@ -34,6 +35,7 @@ private:
 class Engine {
 public:
     Engine(int hp) : horsepower(hp) {}
+
     int horsepower;
 };
 
@@ -45,6 +47,7 @@ public:
     }
 
     // TODO: khai báo friend class CarFactory;
+    friend class CarFactory;
 
 private:
     Engine* engine_ = nullptr;
@@ -55,13 +58,14 @@ public:
     void installEngine(Car& c, Engine* e) {
         // TODO: gán trực tiếp c.engine_ = e; (chỉ hợp lệ sau khi Car khai bao
         // friend class CarFactory)
+        c.engine_ = e;
     }
 };
 
 int main() {
     std::cout << "[Bai 1] Friend function cho operator<<\n";
     Vector2D v(3.0, 4.0);
-    // std::cout << v << "\n"; // TODO: bo comment sau khi lam xong Bai 1
+     std::cout << v << "\n"; // TODO: bo comment sau khi lam xong Bai 1
 
     std::cout << "\n[Bai 2] Friend class - Engine/Car/CarFactory\n";
     Car car;
