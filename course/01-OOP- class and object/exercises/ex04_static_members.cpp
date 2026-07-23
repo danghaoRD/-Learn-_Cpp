@@ -16,13 +16,15 @@
 //       (nếu quên bước này chương trình sẽ lỗi linker "undefined reference").
 class Device {
 public:
-    Device() { /* TODO: count++; */ }
-    // TODO: static int getCount() { return count; }
 
+    Device() { count++; /* TODO: count++; */ }
+    // TODO: static int getCount() { return count; }
+    static int getCount() {return count;}
 private:
     // TODO: static int count;
+    static int count;
 };
-
+ int Device::count = 0;
 // TODO: định nghĩa static member ở đây, ngoài class:
 // int Device::count = 0;
 
@@ -33,6 +35,14 @@ private:
 class MathUtil {
 public:
     // TODO: static int square(int x) { ... }
+    static int square(int x)    {
+        return (x*x);
+    }
+
+    static bool isEven(int x){
+        if(x >= 1) return true;
+        else return false;
+    }
     // TODO: static bool isEven(int x) { ... }
 };
 
@@ -47,6 +57,10 @@ public:
 //     std::cout << "  (getLogPrefix duoc goi)\n";
 //     return prefix;
 // }
+    const std::string& getLogPrefix(){
+        static const std::string prefix = "[LOG] ";
+        return prefix;
+    }
 
 int main() {
     std::cout << "[Bai 1] Dem so object da tao\n";
