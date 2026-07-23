@@ -22,6 +22,8 @@ public:
 
     // TODO: friend Point operator+(const Point& lhs, const Point& rhs);
     // TODO: friend bool operator==(const Point& lhs, const Point& rhs);
+    friend Point operator+(const Point& lhs, const Point& rhs);
+    friend bool operator==(const Point& lhs, const Point& rhs);
 
 private:
     int x_, y_;
@@ -29,7 +31,12 @@ private:
 
 // TODO: Point operator+(const Point& lhs, const Point& rhs) { ... }
 // TODO: bool operator==(const Point& lhs, const Point& rhs) { ... }
-
+Point operator+(const Point& lhs, const Point& rhs) {
+    return Point(lhs.x_ + rhs.x_, lhs.y_ + rhs.y_);
+}
+bool operator==(const Point& lhs, const Point& rhs) {
+    return lhs.x_ == rhs.x_ && lhs.y_ == rhs.y_;
+}
 // ===== Bài 2 (trung bình): Money — global operator+ tận dụng implicit
 // conversion ở CẢ hai vế =====
 // Money có constructor 1 tham số (không explicit) -> compiler được phép
@@ -43,17 +50,20 @@ private:
 class Money {
 public:
     // TODO: Money(int cents) : cents_(cents) {}
+    Money(int cents) : cents_(cents) {}
 
     void print() const { std::cout << cents_ << " cents"; }
 
     // TODO: friend Money operator+(const Money& lhs, const Money& rhs);
-
+    friend Money operator+(const Money& lhs, const Money& rhs);
 private:
     int cents_ = 0;
 };
 
 // TODO: Money operator+(const Money& lhs, const Money& rhs) { ... }
-
+  Money operator+(const Money& lhs, const Money& rhs) {
+    return Money(lhs.cents_ + rhs.cents_);
+  }
 int main() {
     std::cout << "[Bai 1] Point - global operator+ / operator==\n";
     Point p1(1, 2);

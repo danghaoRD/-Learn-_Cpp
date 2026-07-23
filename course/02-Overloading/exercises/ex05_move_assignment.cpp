@@ -31,7 +31,24 @@ public:
     ~MyString() { delete[] data_; }
 
     // TODO: MyString& operator=(const MyString& other) { ... }
+    MyString& operator=(const MyString& other) {
+        if (this == &other) return *this; // self-assignment check
+        delete[] data_; // free existing resource
+        len_ = other.len_;
+        data_ = new char[len_]; // allocate new memory
+        std::memcpy(data_, other.data_, len_); // copy data
+        return *this;
+    }
 
+    MyString& operator=(MyString&& other) noexcept {
+        if (this == &other) return *this; // self-assignment check
+        delete[] data_; // free existing resource
+        data_ = other.data_; // steal the resource
+        len_ = other.len_;
+        other.data_ = nullptr; // leave other in a safe state
+        other.len_ = 0;
+        return *this;
+    }
     // TODO: MyString& operator=(MyString&& other) noexcept { ... }
 
     const char* c_str() const {

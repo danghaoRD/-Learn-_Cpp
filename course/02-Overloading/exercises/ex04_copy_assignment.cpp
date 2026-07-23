@@ -27,6 +27,14 @@ public:
     }
 
     // TODO: IntBuffer& operator=(const IntBuffer& other) { ... }
+    IntBuffer& operator=(const IntBuffer& other) {
+        if (this == &other) return *this; // self-assignment check
+        delete[] data_; // free old memory
+        len_ = other.len_; // copy length
+        data_ = new int[len_]; // allocate new memory
+        std::memcpy(data_, other.data_, len_ * sizeof(int)); // copy data
+        return *this; // return *this for chaining
+    }
 
     void set(size_t i, int v) { data_[i] = v; }
     int get(size_t i) const { return data_[i]; }

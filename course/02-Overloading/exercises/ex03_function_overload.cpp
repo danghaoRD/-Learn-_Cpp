@@ -9,20 +9,30 @@
 // được cho tới khi bạn viết xong thân các hàm TODO. Đây là chủ đích.
 
 #include <iostream>
-
+using namespace std;
 // ===== Bài 1 (dễ): describe — overload theo kiểu tham số =====
 // TODO: describe(int) in "so nguyen: <value>\n"
-void describe(int value);
+void describe(int value) {
+    std::cout << "so nguyen: " << value << "\n";
+}
 // TODO: describe(double) in "so thuc: <value>\n"
-void describe(double value);
+void describe(double value) {
+    std::cout << "so thuc: " << value << "\n";
+}
 // TODO: describe(const char*) in "chuoi: <value>\n"
-void describe(const char* text);
+void describe(const char* text) {
+    std::cout << "chuoi: " << text << "\n";
+}
 
 // ===== Bài 2 (trung bình): area — overload theo số lượng tham số =====
 // TODO: area(int side) — dien tich hinh vuong canh "side"
-int area(int side);
+int area(int side) {
+    return side * side;
+}
 // TODO: area(int width, int height) — dien tich hinh chu nhat
-int area(int width, int height);
+int area(int width, int height) {
+    return width * height;
+}
 
 int main() {
     std::cout << "[Bai 1] describe - overload theo kieu tham so\n";
